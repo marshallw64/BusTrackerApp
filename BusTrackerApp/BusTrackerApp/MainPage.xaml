@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BusTrackerApp.MainPage"
+             BackgroundColor="#455a64">
+
+    <StackLayout Margin="50,325">
+        <Label HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Text="Welcome to the Bus Tracker"
+               TextColor="White"
+               />
+        <Button HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BackgroundColor="#a2c1cc"
+                Text="Students"
+                TextColor="White"/>
+    </StackLayout>
+
+</ContentPage>
+
