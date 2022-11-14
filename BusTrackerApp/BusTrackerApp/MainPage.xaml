@@ -14,7 +14,7 @@
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
                 Text="Students"
-                sFontFamily = "Comic-Sans-MS"
+                FontFamily = "Comic-Sans-MS"
                 TextColor="White"
                 />
     </StackLayout>
