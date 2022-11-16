@@ -8,14 +8,15 @@
         <Label HorizontalOptions="Center"
                VerticalOptions="Center"
                Text="Welcome to the Bus Tracker"
+               FontFamily="comicSans"
                TextColor="White"
-               FontFamily="WingDings"
+               
                />
         <Button HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
                 Text="Student"
-                FontFamily = "comicSans"
+                FontFamily="wingdings"
                 TextColor="White"
                 />
         
