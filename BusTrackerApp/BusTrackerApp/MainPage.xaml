@@ -15,6 +15,16 @@
                 BackgroundColor="#a2c1cc"
                 Text="Students"
                 TextColor="White"/>
+        <Button HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BackgroundColor="#a2c1cc"
+                Text="Parents"
+                TextColor="White"/>
+        <Button HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BackgroundColor="#a2c1cc"
+                Text="Drivers"
+                TextColor="White"/>
     </StackLayout>
 
 </ContentPage>
