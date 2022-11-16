@@ -8,7 +8,7 @@
         <Label HorizontalOptions="Center"
                VerticalOptions="Center"
                Text="Welcome to the Bus Tracker"
-               FontFamily="comicSans"
+               FontFamily="futura"
                TextColor="White"
                
                />
@@ -16,7 +16,7 @@
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
                 Text="Student"
-                FontFamily="wingdings"
+                FontFamily="comicSans"
                 TextColor="White"
                 />
         

@@ -17,10 +17,10 @@
   <ItemGroup>
     <None Remove="Comic-Sans-MS.ttf" />
     <None Remove="Comic Sans MS.ttf" />
-    <None Remove="Wingdings.ttf" />
     <None Remove="Futura.ttc" />
     <None Remove="Helvetica.ttc" />
     <None Remove="Impact.ttf" />
+    <None Remove="Wingdings.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
@@ -31,9 +31,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Comic-Sans-MS.ttf" />
     <EmbeddedResource Include="Comic Sans MS.ttf" />
-    <EmbeddedResource Include="Wingdings.ttf" />
     <EmbeddedResource Include="Futura.ttc" />
     <EmbeddedResource Include="Helvetica.ttc" />
     <EmbeddedResource Include="Impact.ttf" />
+    <EmbeddedResource Include="Wingdings.ttf" />
   </ItemGroup>
 </Project>
