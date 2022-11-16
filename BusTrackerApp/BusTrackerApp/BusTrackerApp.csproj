@@ -16,6 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Fonts\" />
+    <None Remove="Comic-Sans-MS.ttf" />
+    <None Remove="Comic Sans MS.ttf" />
+    <None Remove="Fonts\Helvetica.ttc" />
+    <None Remove="Wingdings.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
@@ -25,5 +29,11 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Comic-Sans-MS.ttf" />
+    <EmbeddedResource Include="Comic Sans MS.ttf" />
+    <EmbeddedResource Include="Fonts\Helvetica.ttc" />
+    <EmbeddedResource Include="Wingdings.ttf" />
   </ItemGroup>
 </Project>

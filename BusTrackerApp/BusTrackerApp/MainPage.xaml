@@ -9,15 +9,17 @@
                VerticalOptions="Center"
                Text="Welcome to the Bus Tracker"
                TextColor="White"
+               FontFamily="WingDings"
                />
         <Button HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
-                Text="Students"
-                FontFamily = "Comic-Sans-MS"
+                Text="Student"
+                FontFamily = "comicSans"
                 TextColor="White"
                 />
-    </StackLayout>
+        
+            </StackLayout>
 
 </ContentPage>
 

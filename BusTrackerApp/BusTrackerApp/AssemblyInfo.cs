@@ -8,4 +8,6 @@ using Xamarin.Forms.Xaml;
 
 //using Xamarin.Forms;
 
-[assembly: ExportFont("Comic-Sans-MS.ttf", Alias = "comicSans")]
+[assembly: ExportFont("Comin-Sans-MS.ttf", Alias = "comicSans")]
+
+[assembly: ExportFont("Wingdings.ttf", Alias = "WingDings")]
