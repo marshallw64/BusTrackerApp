@@ -14,7 +14,16 @@ namespace BusTrackerApp
 
         private void studentLogin_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new MapPage());
+            bool isIDEmpty = string.IsNullOrEmpty(IdEntry.Text);
+
+            if (isIDEmpty) 
+            {
+              
+            }
+            else
+            {
+                Navigation.PushAsync(new MapPage());
+            }
         }
     }
 }

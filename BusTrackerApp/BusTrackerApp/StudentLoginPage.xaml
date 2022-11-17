@@ -12,7 +12,7 @@
                 VerticalOptions="Center"
                 TextColor="White"
                 />
-            <Entry
+            <Entry x:Name="IdEntry"
                 Placeholder="Enter ID Here"
                 />
             <Button x:Name="studentLogin"
