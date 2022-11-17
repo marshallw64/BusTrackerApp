@@ -11,6 +11,11 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        private void studentLogin_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MapPage());
+        }
     }
 }
 

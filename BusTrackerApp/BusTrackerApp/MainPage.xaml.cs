@@ -14,6 +14,16 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        private void studentButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new StudentLoginPage());
+        }
+
+        private void parentButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ParentLoginPage());
+        }
     }
 }
 
