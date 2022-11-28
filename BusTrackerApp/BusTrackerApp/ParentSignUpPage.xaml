@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <Label Text="Please enter your email so that we can send you a sign up code"
-                   
+                   TextColor="White"
                 />
             <Entry x:Name="ParentSignUpEmail"
                    Placeholder="Email"
