@@ -2,9 +2,23 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BusTrackerApp.ParentSignUpPage">
+    x:Class="BusTrackerApp.ParentSignUpPage"
+    BackgroundColor="#455a64">
     <ContentPage.Content>
-
+        <StackLayout VerticalOptions="Center">
+            <Label Text="Please enter your email so that we can send you a sign up code"
+                   
+                />
+            <Entry x:Name="ParentSignUpEmail"
+                   Placeholder="Email"
+                   Keyboard="Email"
+                   />
+            <Button x:Name="SendCode"
+                    Text="Send Code"
+                    BackgroundColor="#a2c1cc"
+                    Clicked="SendCode_Clicked"
+                    />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
 
