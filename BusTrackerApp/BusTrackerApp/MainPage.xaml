@@ -4,28 +4,37 @@
              x:Class="BusTrackerApp.MainPage"
              BackgroundColor="#455a64">
 
-    <StackLayout Margin="50,325">
+    <StackLayout VerticalOptions="Center"
+                 Margin="0">
         <Label HorizontalOptions="Center"
                VerticalOptions="Center"
                Text="Welcome to the Bus Tracker"
+               FontSize="Title"
                TextColor="White"
+               
                />
-        <Button HorizontalOptions="Center"
+        <Button x:Name="studentButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
-                Text="Students"
-                TextColor="White"/>
-        <Button HorizontalOptions="Center"
+                Text="Student"
+                TextColor="White"
+                />
+        <Button x:Name="parentButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
-                Text="Parents"
-                TextColor="White"/>
-        <Button HorizontalOptions="Center"
+                Text="Parent"
+                TextColor="White"
+                />
+        <Button x:Name="driverButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
-                BackgroundColor="#a2c1cc"
-                Text="Drivers"
-                TextColor="White"/>
-    </StackLayout>
+                BackgroundColor="#212121"
+                Text="Driver"
+                TextColor="White"
+                />
+            </StackLayout>
 
 </ContentPage>
 
