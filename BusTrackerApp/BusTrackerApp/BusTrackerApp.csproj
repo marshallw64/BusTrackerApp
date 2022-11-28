@@ -15,12 +15,13 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Comic-Sans-MS.ttf" />
-    <None Remove="Comic Sans MS.ttf" />
-    <None Remove="Futura.ttc" />
-    <None Remove="Helvetica.ttc" />
-    <None Remove="Impact.ttf" />
-    <None Remove="Wingdings.ttf" />
+    <None Remove="Fonts\" />
+    <None Remove="Fonts\Comic Sans MS.ttf" />
+    <None Remove="Fonts\Comic-Sans-MS.ttf" />
+    <None Remove="Fonts\Futura.ttc" />
+    <None Remove="Fonts\Helvetica.ttc" />
+    <None Remove="Fonts\Impact.ttf" />
+    <None Remove="Fonts\Wingdings.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
@@ -29,11 +30,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Comic-Sans-MS.ttf" />
-    <EmbeddedResource Include="Comic Sans MS.ttf" />
-    <EmbeddedResource Include="Futura.ttc" />
-    <EmbeddedResource Include="Helvetica.ttc" />
-    <EmbeddedResource Include="Impact.ttf" />
-    <EmbeddedResource Include="Wingdings.ttf" />
+    <EmbeddedResource Include="Fonts\Comic Sans MS.ttf" />
+    <EmbeddedResource Include="Fonts\Comic-Sans-MS.ttf" />
+    <EmbeddedResource Include="Fonts\Futura.ttc" />
+    <EmbeddedResource Include="Fonts\Helvetica.ttc" />
+    <EmbeddedResource Include="Fonts\Impact.ttf" />
+    <EmbeddedResource Include="Fonts\Wingdings.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
   </ItemGroup>
 </Project>

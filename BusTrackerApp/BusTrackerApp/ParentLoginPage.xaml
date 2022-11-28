@@ -12,15 +12,25 @@
                 VerticalOptions="Center"
                 TextColor="White"
                 />
-            <Entry
+            <Entry x:Name="ParentEmail"
                 Placeholder="Email"
                 Keyboard="Email"
                 />
 
-            <Entry
+            <Entry x:Name="ParentPassword"
                 Placeholder="Password"
                 IsPassword="True"
                 />
+            <Button x:Name="ParentLogIn"
+                    BackgroundColor="#a2c1cc"
+                    Text="Log In"
+                    Clicked="ParentLogIn_Clicked"
+                />
+            <Button x:Name="ParentSignUp"
+                    Text="New to the App? Sign Up Here!"
+                    BackgroundColor="#212121"
+                    Clicked="ParentSignUp_Clicked"
+                    />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
