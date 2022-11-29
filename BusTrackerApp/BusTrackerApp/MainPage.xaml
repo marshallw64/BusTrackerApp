@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BusTrackerApp.MainPage"
              BackgroundColor="#455a64">
-
+<!--This looks dumb-->
     <StackLayout VerticalOptions="Center">
         <Label HorizontalOptions="Center"
                VerticalOptions="Center"
