@@ -27,7 +27,7 @@ namespace BusTrackerApp
             if (isEmailEmpty)
             {
                 //Displays pop-up saying that one of the entries are incorrect somehow
-                DisplayAlert("Error", "Your email and/or password are inccorect, Please try again, or sign up if new to the app", "Ok");
+                DisplayAlert("Error", "Your email and/or password are inccorect, Please try again, or sign up if you don't have an account", "Ok");
             }
             else
             {
