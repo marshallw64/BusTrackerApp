@@ -12,6 +12,11 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        public CodePage(int code)
+        {
+            InitializeComponent();
+        }
     }
 }
 
