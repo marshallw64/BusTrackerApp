@@ -2,9 +2,36 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BusTrackerApp.ParentLoginPage">
+    x:Class="BusTrackerApp.ParentLoginPage"
+    BackgroundColor="#455a64">
     <ContentPage.Content>
+        <StackLayout VerticalOptions="Center">
+            <Label
+                Text="Please Log In with Your Email and Password Here"
+                FontSize="Title"
+                VerticalOptions="Center"
+                TextColor="White"
+                />
+            <Entry x:Name="ParentEmail"
+                Placeholder="Email"
+                Keyboard="Email"
+                />
 
+            <Entry x:Name="ParentPassword"
+                Placeholder="Password"
+                IsPassword="True"
+                />
+            <Button x:Name="ParentLogIn"
+                    BackgroundColor="#a2c1cc"
+                    Text="Log In"
+                    Clicked="ParentLogIn_Clicked"
+                />
+            <Button x:Name="ParentSignUp"
+                    Text="New to the App? Sign Up Here!"
+                    BackgroundColor="#212121"
+                    Clicked="ParentSignUp_Clicked"
+                    />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
 

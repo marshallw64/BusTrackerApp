@@ -14,4 +14,30 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fonts\" />
+    <None Remove="Fonts\Comic Sans MS.ttf" />
+    <None Remove="Fonts\Comic-Sans-MS.ttf" />
+    <None Remove="Fonts\Futura.ttc" />
+    <None Remove="Fonts\Helvetica.ttc" />
+    <None Remove="Fonts\Impact.ttf" />
+    <None Remove="Fonts\Wingdings.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Comic Sans MS.ttf" />
+    <EmbeddedResource Include="Fonts\Comic-Sans-MS.ttf" />
+    <EmbeddedResource Include="Fonts\Futura.ttc" />
+    <EmbeddedResource Include="Fonts\Helvetica.ttc" />
+    <EmbeddedResource Include="Fonts\Impact.ttf" />
+    <EmbeddedResource Include="Fonts\Wingdings.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
 </Project>

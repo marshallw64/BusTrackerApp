@@ -8,11 +8,24 @@ using Xamarin.Forms;
 
 namespace BusTrackerApp
 {
+    //the Welcome page, navigates to every user-side login page
     public partial class MainPage : ContentPage
     {
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        //Navigates to StudentLoginPage
+        private void studentButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new StudentLoginPage());
+        }
+
+        //Navigates to ParentLoginPage
+        private void parentButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ParentLoginPage());
         }
     }
 }

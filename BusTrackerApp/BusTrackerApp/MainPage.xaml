@@ -3,29 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BusTrackerApp.MainPage"
              BackgroundColor="#455a64">
-
-    <StackLayout Margin="50,325">
+<!--This looks dumb-->
+    <StackLayout VerticalOptions="Center">
         <Label HorizontalOptions="Center"
                VerticalOptions="Center"
                Text="Welcome to the Bus Tracker"
+               FontSize="Title"
+               FontFamily="futura"
                TextColor="White"
+               
                />
-        <Button HorizontalOptions="Center"
+        <Button x:Name="studentButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
-                Text="Students"
-                TextColor="White"/>
-        <Button HorizontalOptions="Center"
+                Text="Student"
+                FontFamily="comicSans"
+                TextColor="White"
+                Clicked="studentButton_Clicked"
+                WidthRequest="100"
+                />
+        <Button x:Name="parentButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
                 BackgroundColor="#a2c1cc"
-                Text="Parents"
-                TextColor="White"/>
-        <Button HorizontalOptions="Center"
+                Text="Parent"
+                FontFamily="comicSans"
+                TextColor="White"
+                Clicked="parentButton_Clicked"
+                WidthRequest="100"
+                />
+        <Button x:Name="driverButton"
+                HorizontalOptions="Center"
                 VerticalOptions="Center"
-                BackgroundColor="#a2c1cc"
-                Text="Drivers"
-                TextColor="White"/>
-    </StackLayout>
+                BackgroundColor="#212121"
+                Text="Driver"
+                FontFamily="comicSans"
+                TextColor="White"
+                WidthRequest="100"
 
+                />
+            </StackLayout>
 </ContentPage>
 
