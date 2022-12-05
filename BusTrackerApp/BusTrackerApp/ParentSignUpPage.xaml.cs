@@ -39,16 +39,33 @@ namespace BusTrackerApp
 
                 
 
+                
+
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress("dumminer19@gmail.com");
+                message.To.Add(new MailAddress("mawhitewater@icloud.com"));
+                message.Subject = "Test";
+                message.IsBodyHtml = true; //to make message body as html  
+                message.Body = "<p>Please Help I'm trapped in an Email</p>";
+                smtp.Port = 465;
+                smtp.Host = "smtp.gmail.com"; //for gmail host  
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("dumminer19@gmail.com", "worvyd-mYwwiv-pumga2");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+
                 DisplayAlert("Success", "Your email has been sent " + code, "Ok");
 
-                MailAddress from = new MailAddress("mawhitewater@icloud.com");
+                /*MailAddress from = new MailAddress("mawhitewater@icloud.com");
                 MailAddress to = new MailAddress("mwhitewater@newtech.coppellisd.com");
                 MailMessage message = new MailMessage(from, to);
                 message.Subject = "Using the SmtpClient class.";
                 message.Body = @"Using this feature, you can send an email message from an application very easily.";
                 SmtpClient client = new SmtpClient("207.235.150.111");
 
-                client.Send(message);
+                client.Send(message);*/
 
                 /*var smtpClient = new SmtpClient("mawhitewater@icloud.com")
                 {
