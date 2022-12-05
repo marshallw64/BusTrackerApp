@@ -22,6 +22,7 @@
     <None Remove="Fonts\Helvetica.ttc" />
     <None Remove="Fonts\Impact.ttf" />
     <None Remove="Fonts\Wingdings.ttf" />
+    <None Remove="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
@@ -39,5 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 </Project>

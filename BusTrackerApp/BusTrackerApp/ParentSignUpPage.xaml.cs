@@ -37,10 +37,6 @@ namespace BusTrackerApp
                 //will also need to save the code & email for the CodePage
                 var code = rand.Next(0000, 9999);
 
-                
-
-                
-
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("dumminer19@gmail.com");
@@ -84,7 +80,7 @@ namespace BusTrackerApp
                 mailMessage.To.Add("recipient");
 
                 smtpClient.Send(mailMessage);*/
-                //Navigation.PushAsync(new CodePage());
+                Navigation.PushAsync(new CodePage());
             }
 
 
