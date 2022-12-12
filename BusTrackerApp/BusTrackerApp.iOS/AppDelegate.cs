@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< Updated upstream
-
-=======
 using Xamarin.Forms.Maps;
->>>>>>> Stashed changes
 using Foundation;
 using UIKit;
 
