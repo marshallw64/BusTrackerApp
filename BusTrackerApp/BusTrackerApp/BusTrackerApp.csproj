@@ -11,8 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2545" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Xamarin.Forms.Maps" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Fonts\" />

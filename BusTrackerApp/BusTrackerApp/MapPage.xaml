@@ -9,11 +9,15 @@
                      Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
+<<<<<<< Updated upstream
 
         <StackLayout>
             
 
         </StackLayout>
+=======
+        
+>>>>>>> Stashed changes
     </ContentPage.Content>
 </ContentPage>
 
