@@ -2,17 +2,20 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     x:Class="BusTrackerApp.MapPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings"
+        <ToolbarItem Text="ඞ"
                  IconImageSource="wonder-day-amoung-us-26.png"
                      Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <maps:Map x:Name="busMap"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
             
 
-        </StackLayout>
+        </maps:Map>
     </ContentPage.Content>
 </ContentPage>
 
