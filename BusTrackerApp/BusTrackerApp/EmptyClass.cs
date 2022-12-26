@@ -6,6 +6,7 @@ namespace BusTrackerApp
 		public EmptyClass()
 		{
 			var urMom = "Your mom is gay lol. Wait your parents are dead? lol batman + L + ratio + ulucky";
+			var broWhat = "Bro that's a bit out of pocket";
 		}
 	}
 }
