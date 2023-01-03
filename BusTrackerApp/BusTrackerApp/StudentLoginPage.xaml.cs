@@ -29,7 +29,7 @@ namespace BusTrackerApp
             {
                 //navigates to MapPage if the ID is valid, navigates to user's saved routes MapPage if applicable
                 //TODO: needs to access user's saved routes to take user to the correctly modified MapPage
-                Navigation.PushAsync(new MapPage());
+                Navigation.PushAsync(new MapRouteTabbedPage());
             }
         }
     }

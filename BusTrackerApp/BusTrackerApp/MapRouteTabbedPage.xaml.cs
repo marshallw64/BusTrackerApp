@@ -16,5 +16,11 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        //when the settings button is clicked, it sends you to the settings page
+        void ToolbarItem_Clicked(System.Object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
+        }
     }
 }

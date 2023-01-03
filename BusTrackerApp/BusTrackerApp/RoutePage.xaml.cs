@@ -11,6 +11,11 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        void postListView_ItemSelected(System.Object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new RouteDetailsPage());
+        }
     }
 }
 
