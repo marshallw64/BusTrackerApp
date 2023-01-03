@@ -11,6 +11,11 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+
+        void signOut_Clicked(System.Object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new MainPage());
+        }
     }
 }
 

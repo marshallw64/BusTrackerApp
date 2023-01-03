@@ -2,13 +2,23 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BusTrackerApp.SettingsPage">
+    x:Class="BusTrackerApp.SettingsPage"
+    BackgroundColor="#455a64">
     <ContentPage.Content>
         <StackLayout>
-            <Label
-                Text="Bruh"
+            <Button x:Name="signOut"
+                   Text="Sign Out"
+                    Clicked="signOut_Clicked"
+                     BackgroundColor="#a2c1cc"
+                    FontFamily="comicSans"
+                    TextColor="White"
                 />
-
+            <Button x:Name="darkMode"
+                     BackgroundColor="#a2c1cc"
+                    Text="Dark Mode"
+                    FontFamily="comicSans"
+                    TextColor="White"
+                    />
 
         </StackLayout>
         
