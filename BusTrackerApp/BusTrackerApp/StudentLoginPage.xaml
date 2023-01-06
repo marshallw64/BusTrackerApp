@@ -11,12 +11,15 @@
                 FontSize="Title"
                 VerticalOptions="Center"
                 TextColor="White"
+                FontFamily="futura"
                 />
             <Entry x:Name="IdEntry"
                 Placeholder="Enter ID Here"
+                   FontFamily="futura"
                 />
             <Button x:Name="studentLogin"
                 Text="Log In"
+                FontFamily="futura"
                 BackgroundColor="#a2c1cc"
                 Clicked="studentLogin_Clicked"
                 />

@@ -9,25 +9,32 @@
             <Label
                 Text="Please Log In with Your Email and Password Here"
                 FontSize="Title"
+                FontFamily="futura"
                 VerticalOptions="Center"
                 TextColor="White"
                 />
             <Entry x:Name="ParentEmail"
                 Placeholder="Email"
+                FontFamily="futura"
                 Keyboard="Email"
                 />
 
             <Entry x:Name="ParentPassword"
                 Placeholder="Password"
+                FontFamily="futura"
                 IsPassword="True"
                 />
             <Button x:Name="ParentLogIn"
                     BackgroundColor="#a2c1cc"
+                    FontFamily="futura"
+                    TextColor="White"
                     Text="Log In"
                     Clicked="ParentLogIn_Clicked"
                 />
             <Button x:Name="ParentSignUp"
                     Text="New to the App? Sign Up Here!"
+                    TextColor="White"
+                    FontFamily="futura"
                     BackgroundColor="#212121"
                     Clicked="ParentSignUp_Clicked"
                     />

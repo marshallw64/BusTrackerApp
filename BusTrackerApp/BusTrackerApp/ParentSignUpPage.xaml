@@ -7,14 +7,17 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <Label Text="Please enter your email so that we can send you a sign up code"
+                   FontFamily="futura"
                    TextColor="White"
                 />
             <Entry x:Name="ParentSignUpEmail"
                    Placeholder="Email"
+                   FontFamily="futura" 
                    Keyboard="Email"
                    />
             <Button x:Name="SendCode"
                     Text="Send Code"
+                    FontFamily="futura"
                     BackgroundColor="#a2c1cc"
                     Clicked="SendCode_Clicked"
                     />
