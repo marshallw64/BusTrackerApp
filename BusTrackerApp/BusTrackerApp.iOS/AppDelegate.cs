@@ -4,6 +4,8 @@ using System.Linq;
 using Xamarin.Forms.Maps;
 using Foundation;
 using UIKit;
+using SQLitePCL;
+using System.IO;
 
 namespace BusTrackerApp.iOS
 {
@@ -23,7 +25,13 @@ namespace BusTrackerApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            Xamarin.FormsMaps.Init();
+
+            string dbName = "bus_db.sqlite";
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "..", "Library");
+            string fullPath = Path.Combine(folderPath, dbName);
+
+            LoadApplication(new App(fullPath));
 
             return base.FinishedLaunching(app, options);
         }
