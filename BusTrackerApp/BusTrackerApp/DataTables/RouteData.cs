@@ -8,7 +8,7 @@ namespace BusTrackerApp.DataTables
 	{
 		//Stores the number of the route which will be used to ID each route
 		[PrimaryKey]
-		public int routeNum { get; set; }
+		public int busNum { get; set; }
 
         //Stores the coordinates to draw the route on the map 
         public Position[] routeLineCords { get; set; }
