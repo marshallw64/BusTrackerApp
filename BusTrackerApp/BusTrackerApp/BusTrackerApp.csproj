@@ -15,10 +15,13 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2545" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Xamarin.Forms.Maps" />
     <None Remove="Xam.Plugin.Geolocator" />
+    <None Remove="sqlite-net-pcl" />
+    <None Remove="DataTables\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Fonts\" />
@@ -47,5 +50,6 @@
   <ItemGroup>
     <Folder Include="Fonts\" />
     <Folder Include="Images\" />
+    <Folder Include="DataTables\" />
   </ItemGroup>
 </Project>
