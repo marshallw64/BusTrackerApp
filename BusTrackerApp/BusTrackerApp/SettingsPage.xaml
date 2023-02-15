@@ -4,7 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BusTrackerApp.SettingsPage">
     <ContentPage.Content>
-
+        <Label
+            Text="Should Be Green In Dark and Black in Light"
+            
+            />
     </ContentPage.Content>
 </ContentPage>
 

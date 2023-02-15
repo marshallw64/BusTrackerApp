@@ -32,6 +32,7 @@ namespace BusTrackerApp
         {
             Navigation.PushAsync(new DriverLoginPage());
         }
+
     }
 }
 
