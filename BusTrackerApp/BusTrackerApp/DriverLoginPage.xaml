@@ -20,14 +20,20 @@
                     Title="Bus #">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                          <x:String>#101</x:String>
-                          <x:String>#202</x:String>
-                          <x:String>#303</x:String>
+                          <x:String>#56</x:String>
+                          <x:String>#34</x:String>
+                          <x:String>#49</x:String>
                           <x:String>Demonstration Route</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
             </Picker>
-            
+            <Button x:Name="DriverLogin"
+                    Text="Login"
+                    BackgroundColor="#a2c1cc"
+                    Clicked="DriverLogin_Clicked"
+
+            />
+
 
         </StackLayout>
     </ContentPage.Content>
