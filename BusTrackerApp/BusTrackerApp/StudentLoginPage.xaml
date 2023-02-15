@@ -20,10 +20,15 @@
                 BackgroundColor="#a2c1cc"
                 Clicked="studentLogin_Clicked"
                 />
-            <Button x:Name="testRouteAWS"
+            <Button x:Name="testSavingRouteAWS"
                     Text="Insert Route Into Database"
                     BackgroundColor="#a2c1cc"
                     Clicked="testRouteAWS_Clicked"/>
+
+            <Button x:Name="testRetrivingRouteAWS"
+                    Text="Get Route From Database"
+                    BackgroundColor="#a2c1cc"
+                    Clicked="testRetrivingRouteAWS_Clicked"/>
 
         </StackLayout>
             

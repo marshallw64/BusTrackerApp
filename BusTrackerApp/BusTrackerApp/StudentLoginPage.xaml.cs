@@ -16,6 +16,7 @@ using Amazon.Runtime.Internal.Transform;
 using Amazon.Runtime.CredentialManagement;
 using System.IO.Compression;
 using System.IO;
+using static Xamarin.Essentials.AppleSignInAuthenticator;
 
 namespace BusTrackerApp
 {
@@ -76,6 +77,7 @@ namespace BusTrackerApp
 
         async Task<bool> saveItemToDB()
         {
+            //Creates the AWS profile to access our AWS server
             WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
 
             /*
@@ -89,18 +91,18 @@ namespace BusTrackerApp
 
             DynamoDBContext context = new DynamoDBContext(client);
 
+            //Creates a dictionary with attributes that will hold the data that will be inserted into the AWS table
             Dictionary<string, AttributeValue> attributes = new Dictionary<string, AttributeValue>();
 
-            //MemoryStream beeboo = new MemoryStream(132);
+            //Creates a byte array with only 1 element that is either 0 (route is not in the morning) or 1 (route is in the morning)
+            byte[] byteArray = { 1 };
+            MemoryStream isAM = new MemoryStream(byteArray);
 
-            byte[] byteArray = { 0 };
-
-            MemoryStream beeboo = new MemoryStream(byteArray);
-
-            attributes["BusNum"] = new AttributeValue { N = "56" };
-            attributes["IsAM"] = new AttributeValue { B = beeboo };
-            attributes["driverLactionLat"] = new AttributeValue { N = "32.96945" };
-            attributes["driverLocationLon"] = new AttributeValue { N = "-96.99385" };
+            //Creates 
+            attributes["BusNum"] = new AttributeValue { N = "49" };
+            attributes["IsAM"] = new AttributeValue { B = isAM };
+            attributes["driverLactionLat"] = new AttributeValue { N = "32.96999" };
+            attributes["driverLocationLon"] = new AttributeValue { N = "-96.99399" };
 
 
             Console.WriteLine("I'm saving an item");
@@ -120,8 +122,66 @@ namespace BusTrackerApp
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
+        async void testRetrivingRouteAWS_Clicked(System.Object sender, System.EventArgs e)
+        {
+            if (await Task.Run(retiveItemFromDB))
+            {
+                Console.Write("It worked yay!!!!!!!!!!!!!!!!!!");
+            }
+            else
+            {
+                Console.Write("It didn't. Go back to fart");
+            }
+        }
 
+        async Task<bool> retiveItemFromDB()
+        {
+            //Creates the AWS profile to access our AWS server
+            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
 
+            /*
+             * Got Cliet Config from 
+             * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CodeSamples.DotNet.html
+             */
+            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
+            // This client will access the US East 2 region.
+            clientConfig.RegionEndpoint = RegionEndpoint.USEast2;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
+
+            DynamoDBContext context = new DynamoDBContext(client);
+
+            byte[] byteArray = { 1 };
+            MemoryStream isAM = new MemoryStream(byteArray);
+
+            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
+            {
+                { "BusNum", new AttributeValue { N = "49" } },
+                { "IsAM", new AttributeValue { B = isAM } }
+            };
+
+            // Create GetItem request
+            GetItemRequest request = new GetItemRequest
+            {
+                TableName = "BusRoutes",
+                Key = key,
+            };
+
+            // Issue request
+            var result = await client.GetItemAsync(request);
+
+            // View response
+            Console.WriteLine("Bus Route:");
+            Dictionary<string, AttributeValue> item = result.Item;
+            foreach (var keyValuePair in item)
+            {
+                Console.WriteLine("Bus Num = {0}", item["BusNum"].N);
+                Console.WriteLine("IsAM = {0}", ((byte[])item["IsAM"].B.ToArray()).GetValue(0));
+                Console.WriteLine("driverLactionLat = {0}", item["driverLactionLat"].N);
+                Console.WriteLine("driverLocationLon = {0}", item["driverLocationLon"].N);
+            }
+
+            return result.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
     }
 }
 
