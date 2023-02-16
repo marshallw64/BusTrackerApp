@@ -17,6 +17,9 @@ namespace BusTrackerApp
 {
     public partial class MapPage : ContentPage
     {
+        Pin busPin;
+
+        int busNum;
 
         IGeolocator locator = CrossGeolocator.Current;
         public MapPage()
@@ -79,7 +82,9 @@ namespace BusTrackerApp
                 }
             };
 
-            AddBusPinAsync(49);
+            this.busNum = busNum;
+
+            GetDriverLocation();
             busMap.MapElements.Add(polyline);
         }
 
@@ -114,13 +119,14 @@ namespace BusTrackerApp
 
                 busMap.IsShowingUser = true;
 
-                CenterMap(location.Latitude, location.Longitude);
+                //CenterMap(location.Latitude, location.Longitude);
             }
         }
 
-        private void Locator_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+        private async void Locator_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
         {
-            CenterMap(e.Position.Latitude, e.Position.Longitude);
+            await saveItemToDB(busNum, e.Position.Latitude, e.Position.Longitude);
+            //CenterMap(e.Position.Latitude, e.Position.Longitude);
         }
 
         private async Task<PermissionStatus> CheckAndRequestLocationPermission()
@@ -138,7 +144,7 @@ namespace BusTrackerApp
 
             status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
             return status;
-        }*/
+        }
 
         //Centers the map on a single coordinate
         private void CenterMap(double latitude, double longitude)
@@ -151,10 +157,10 @@ namespace BusTrackerApp
 
         //Adds a pin for a bus on to the map using the number given
         //TODO: Either move this method to another class with all the bus coordinates or add coordinates to the paramiters 
-        private async Task AddBusPinAsync(int busNum)
+        private async void AddBusPinAsync(int busNum)
         {
 
-            float[] corrdinates = await retiveItemFromDB(49);
+            float[] corrdinates = await retiveItemFromDB(busNum);
 
             //Creates new pin object with lable, type, and position properties
             Pin busPin = new Pin
@@ -164,8 +170,54 @@ namespace BusTrackerApp
                 Position = new Xamarin.Forms.Maps.Position(corrdinates[0], corrdinates[1])
             };
 
-            //Adds busPin to map
-            busMap.Pins.Add(busPin);
+            this.busPin = busPin;
+        }
+
+        async Task<bool> saveItemToDB(int busNum, double driverLoctionLat, double driverLocationLong)
+        {
+            //Creates the AWS profile to access our AWS server
+            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
+
+            /*
+             * Got Cliet Config from 
+             * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CodeSamples.DotNet.html
+             */
+            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
+            // This client will access the US East 2 region.
+            clientConfig.RegionEndpoint = RegionEndpoint.USEast2;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
+
+            DynamoDBContext context = new DynamoDBContext(client);
+
+            //Creates a dictionary with attributes that will hold the data that will be inserted into the AWS table
+            Dictionary<string, AttributeValue> attributes = new Dictionary<string, AttributeValue>();
+
+            //Creates a byte array with only 1 element that is either 0 (route is not in the morning) or 1 (route is in the morning)
+            byte[] byteArray = { 1 };
+            MemoryStream isAM = new MemoryStream(byteArray);
+
+            //Creates 
+            attributes["BusNum"] = new AttributeValue { N = busNum.ToString() };
+            attributes["IsAM"] = new AttributeValue { B = isAM };
+            attributes["driverLactionLat"] = new AttributeValue { N = driverLoctionLat.ToString() };
+            attributes["driverLocationLon"] = new AttributeValue { N = driverLocationLong.ToString() };
+
+
+            Console.WriteLine("I'm saving an item");
+
+            // Create PutItem request
+            PutItemRequest request = new PutItemRequest
+            {
+                TableName = "BusRoutes",
+                Item = attributes
+            };
+
+            Console.WriteLine("I'm still saving an item");
+            //Save method Document Model
+            //Issue PutItem request
+            var response = await client.PutItemAsync(request);
+            Console.WriteLine("entry saved");
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
         async Task<float[]> retiveItemFromDB(int busNum)
