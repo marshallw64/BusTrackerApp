@@ -12,12 +12,15 @@ using Amazon.DynamoDBv2.Model;
 using System.IO;
 using Amazon.Runtime.CredentialManagement;
 using Amazon;
+using System.Threading;
 
 namespace BusTrackerApp
 {
     public partial class MapPage : ContentPage
     {
-        Pin busPin;
+        Pin busPin = null;
+
+        bool isChecking;
 
         int busNum;
 
@@ -50,8 +53,25 @@ namespace BusTrackerApp
                 }
             };
 
-            AddBusPinAsync(49);
+            AddBusPinAsync(30);
+            isChecking = true;
+            checkDBForChanges(30);
+
             busMap.MapElements.Add(polyline);
+        }
+
+        private async void checkDBForChanges(int busNum)
+        {
+            while (isChecking)
+            {
+                float[] newCorrdinates = await retiveItemFromDB(busNum);
+
+                if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
+                {
+                    busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
+                }
+                Thread.Sleep(5000);
+            }
         }
 
         public MapPage(int busNum)
@@ -86,6 +106,15 @@ namespace BusTrackerApp
 
             GetDriverLocation();
             busMap.MapElements.Add(polyline);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            isChecking = false;
+
+            locator.StopListeningAsync();
         }
 
         //when the settings button is clicked, it sends you to the settings page
@@ -162,6 +191,8 @@ namespace BusTrackerApp
 
             float[] corrdinates = await retiveItemFromDB(busNum);
 
+            Console.WriteLine(corrdinates[0] + " " + corrdinates[1]);
+
             //Creates new pin object with lable, type, and position properties
             Pin busPin = new Pin
             {
@@ -171,6 +202,8 @@ namespace BusTrackerApp
             };
 
             this.busPin = busPin;
+
+            busMap.Pins.Add(busPin);
         }
 
         async Task<bool> saveItemToDB(int busNum, double driverLoctionLat, double driverLocationLong)
@@ -222,6 +255,7 @@ namespace BusTrackerApp
 
         async Task<float[]> retiveItemFromDB(int busNum)
         {
+            Console.WriteLine("Scanning DB");
             //Creates the AWS profile to access our AWS server
             WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
 
@@ -259,6 +293,8 @@ namespace BusTrackerApp
             Dictionary<string, AttributeValue> item = result.Item;
 
             float[] corrdinates = { float.Parse(item["driverLactionLat"].N), float.Parse(item["driverLocationLon"].N) };
+
+            Console.WriteLine("Done Scanning DB");
 
             return corrdinates;
         }

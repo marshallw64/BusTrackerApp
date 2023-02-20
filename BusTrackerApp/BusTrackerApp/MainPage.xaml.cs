@@ -27,6 +27,11 @@ namespace BusTrackerApp
         {
             Navigation.PushAsync(new ParentLoginPage());
         }
+
+        void driverButton_Clicked(System.Object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new DriverLoginPage());
+        }
     }
 }
 
