@@ -10,6 +10,9 @@ namespace BusTrackerApp.DataTables
 		[PrimaryKey]
 		public int busNum { get; set; }
 
+		//Says whether the route is during the morning (true) or afternoon (false)
+		public bool isAM { get; set; }
+
         //Stores the coordinates to draw the route on the map 
         public Position[] routeLineCords { get; set; }
 

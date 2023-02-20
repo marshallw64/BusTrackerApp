@@ -12,16 +12,29 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2545" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.105.3" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.45" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.4" />
+    <PackageReference Include="AWSSDK.CodeCatalyst" Version="3.7.100.47" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.100.75" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Xamarin.Forms.Maps" />
     <None Remove="Xam.Plugin.Geolocator" />
     <None Remove="sqlite-net-pcl" />
     <None Remove="DataTables\" />
+    <None Remove="AWSSDK.Core" />
+    <None Remove="AWSSDK.DynamoDBv2" />
+    <None Remove="AWSSDK.SecurityToken" />
+    <None Remove="AWSSDK.Extensions.NETCore.Setup" />
+    <None Remove="AWSSDK.CodeCatalyst" />
+    <None Remove="AWSSDK.IdentityManagement" />
+    <None Remove="NETStandard.Library" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Fonts\" />

@@ -41,6 +41,7 @@
                 FontFamily="comicSans"
                 TextColor="White"
                 WidthRequest="100"
+                Clicked="driverButton_Clicked"
 
                 />
             </StackLayout>
