@@ -6,6 +6,9 @@ using Foundation;
 using UIKit;
 using SQLitePCL;
 using System.IO;
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 
 namespace BusTrackerApp.iOS
 {
@@ -30,6 +33,24 @@ namespace BusTrackerApp.iOS
             string dbName = "bus_db.sqlite";
             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "..", "Library");
             string fullPath = Path.Combine(folderPath, dbName);
+
+            var loggingConfig = AWSConfigs.LoggingConfig;
+            loggingConfig.LogMetrics = true;
+            loggingConfig.LogResponses = ResponseLoggingOption.Always;
+            loggingConfig.LogMetricsFormat = LogMetricsFormatOption.JSON;
+            loggingConfig.LogTo = LoggingOptions.SystemDiagnostics;
+
+            
+
+            AWSConfigs.AWSRegion = "us-east-2";
+
+            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
+            // This client will access the US East 1 region.
+            clientConfig.RegionEndpoint = RegionEndpoint.USEast1;
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
+
+            //var client = new AmazonDynamoDBClient(Amazon.Runtime.AWSCredentials., Amazon.RegionEndpoint.USEast2);
+            DynamoDBContext context = new DynamoDBContext(client);
 
             LoadApplication(new App(fullPath));
 
