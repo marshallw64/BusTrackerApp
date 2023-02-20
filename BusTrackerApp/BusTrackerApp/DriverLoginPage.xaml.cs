@@ -28,7 +28,7 @@ namespace BusTrackerApp
                 //checks that the email & password match ones from our database, and then sends them to their student's MapPage
                 //TODO: the logic for checking the entries with our database will be an if/else statement similar to the one for checking if the entries are filled,
                 //if will see if the entries match & if not do nothing & else will navigate to the correct MapPage for the account
-                Navigation.PushAsync(new MapPage());
+                Navigation.PushAsync(new MapPage(int.Parse(BusNumberPicker.SelectedItem.ToString())));
             }
         }
     }

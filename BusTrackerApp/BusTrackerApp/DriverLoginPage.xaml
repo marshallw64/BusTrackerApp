@@ -20,10 +20,10 @@
                     Title="Bus #">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                          <x:String>#56</x:String>
-                          <x:String>#34</x:String>
-                          <x:String>#49</x:String>
-                          <x:String>Demonstration Route</x:String>
+                          <x:String>56</x:String>
+                          <x:String>34</x:String>
+                          <x:String>49</x:String>
+                          <x:String>30</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
             </Picker>
