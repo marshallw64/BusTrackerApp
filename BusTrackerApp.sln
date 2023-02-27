@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTrackerApp.Android", "Bu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTrackerApp.iOS", "BusTrackerApp\BusTrackerApp.iOS\BusTrackerApp.iOS.csproj", "{D3B1CCEF-2219-4B05-AFA5-21E6D6462E16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusTrackerApp", "BusTrackerApp\BusTrackerApp\BusTrackerApp.csproj", "{D6F1662D-BA57-4504-B984-B73933626939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTrackerApp", "BusTrackerApp\BusTrackerApp\BusTrackerApp.csproj", "{D6F1662D-BA57-4504-B984-B73933626939}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
