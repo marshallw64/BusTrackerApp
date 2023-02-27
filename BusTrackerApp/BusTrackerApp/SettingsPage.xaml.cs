@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
 
 namespace BusTrackerApp
@@ -11,6 +10,10 @@ namespace BusTrackerApp
         {
             InitializeComponent();
         }
+        
+
+        
+
     }
 }
 

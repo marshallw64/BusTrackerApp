@@ -13,22 +13,32 @@ using System.IO;
 using Amazon.Runtime.CredentialManagement;
 using Amazon;
 using System.Threading;
+using BusTrackerApp.DataTables;
 
 namespace BusTrackerApp
 {
     public partial class MapPage : ContentPage
     {
+        //Establishes a connection the AWSConnection class for database methods
+        AWSConnection awsDB = new AWSConnection();
+
+        //Creates the pin for the bus to use
         Pin busPin = null;
 
-        bool isChecking;
+        //declares a boolean the says whether or not 
+        bool isChecking = false;
 
-        int busNum;
+        //Declares a integer for the number that bus uses that will be used for all the logic here
+        int busNum = 0;
 
         IGeolocator locator = CrossGeolocator.Current;
+
+        //This constructor
         public MapPage()
         {
-
             InitializeComponent();
+
+            CrossGeolocator.Current.DesiredAccuracy = 20;
 
             //Draws lines where the route is with each coordinate being a start or end point of each line
             //It then adds the route on top the map
@@ -53,27 +63,14 @@ namespace BusTrackerApp
                 }
             };
 
-            AddBusPinAsync(30);
+            AddBusPinAsync(49);
             isChecking = true;
-            checkDBForChanges(30);
+            Task.Factory.StartNew(() => { checkDBForChanges(49); });
 
             busMap.MapElements.Add(polyline);
         }
 
-        private async void checkDBForChanges(int busNum)
-        {
-            while (isChecking)
-            {
-                float[] newCorrdinates = await retiveItemFromDB(busNum);
-
-                if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
-                {
-                    busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
-                }
-                Thread.Sleep(5000);
-            }
-        }
-
+        //This constuctor is for the driver so it can track their location and draw their map
         public MapPage(int busNum)
         {
 
@@ -117,6 +114,27 @@ namespace BusTrackerApp
             locator.StopListeningAsync();
         }
 
+        private async void checkDBForChanges(int busNum)
+        {
+            try
+            {
+                while (isChecking)
+                {
+                    float[] newCorrdinates = await awsDB.retiveItemFromDB(busNum);
+
+                    if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
+                    {
+                        busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
+                    }
+                    Thread.Sleep(5000);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Check failed");
+            }
+        }
+
         //when the settings button is clicked, it sends you to the settings page
         void ToolbarItem_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -141,23 +159,24 @@ namespace BusTrackerApp
 
             if (status == PermissionStatus.Granted)
             {
-                var location = await Geolocation.GetLocationAsync();
+                var location = CrossGeolocator.Current;
 
-                locator.PositionChanged += Locator_PositionChanged;
-                await locator.StartListeningAsync(new TimeSpan(0, 1, 0), 100);
+                locator.PositionChanged += async (sender, e) => {
+                    try
+                    {
+                        await awsDB.saveItemToDB(busNum, e.Position.Latitude, e.Position.Longitude);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Save location failed");
+                    }
+                }; ;
+                await locator.StartListeningAsync(new TimeSpan(0, 0, 30), 1);
 
                 busMap.IsShowingUser = true;
-
-                //CenterMap(location.Latitude, location.Longitude);
             }
         }
-
-        private async void Locator_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
-        {
-            await saveItemToDB(busNum, e.Position.Latitude, e.Position.Longitude);
-            //CenterMap(e.Position.Latitude, e.Position.Longitude);
-        }
-
+        
         private async Task<PermissionStatus> CheckAndRequestLocationPermission()
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -189,7 +208,7 @@ namespace BusTrackerApp
         private async void AddBusPinAsync(int busNum)
         {
 
-            float[] corrdinates = await retiveItemFromDB(busNum);
+            float[] corrdinates = await awsDB.retiveItemFromDB(busNum);
 
             Console.WriteLine(corrdinates[0] + " " + corrdinates[1]);
 
@@ -205,113 +224,5 @@ namespace BusTrackerApp
 
             busMap.Pins.Add(busPin);
         }
-
-        async Task<bool> saveItemToDB(int busNum, double driverLoctionLat, double driverLocationLong)
-        {
-            //Creates the AWS profile to access our AWS server
-            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
-
-            /*
-             * Got Cliet Config from 
-             * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CodeSamples.DotNet.html
-             */
-            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
-            // This client will access the US East 2 region.
-            clientConfig.RegionEndpoint = RegionEndpoint.USEast2;
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
-
-            DynamoDBContext context = new DynamoDBContext(client);
-
-            //Creates a dictionary with attributes that will hold the data that will be inserted into the AWS table
-            Dictionary<string, AttributeValue> attributes = new Dictionary<string, AttributeValue>();
-
-            //Creates a byte array with only 1 element that is either 0 (route is not in the morning) or 1 (route is in the morning)
-            byte[] byteArray = { 1 };
-            MemoryStream isAM = new MemoryStream(byteArray);
-
-            //Creates 
-            attributes["BusNum"] = new AttributeValue { N = busNum.ToString() };
-            attributes["IsAM"] = new AttributeValue { B = isAM };
-            attributes["driverLactionLat"] = new AttributeValue { N = driverLoctionLat.ToString() };
-            attributes["driverLocationLon"] = new AttributeValue { N = driverLocationLong.ToString() };
-
-
-            Console.WriteLine("I'm saving an item");
-
-            // Create PutItem request
-            PutItemRequest request = new PutItemRequest
-            {
-                TableName = "BusRoutes",
-                Item = attributes
-            };
-
-            Console.WriteLine("I'm still saving an item");
-            //Save method Document Model
-            //Issue PutItem request
-            var response = await client.PutItemAsync(request);
-            Console.WriteLine("entry saved");
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-        }
-
-        async Task<float[]> retiveItemFromDB(int busNum)
-        {
-            Console.WriteLine("Scanning DB");
-            //Creates the AWS profile to access our AWS server
-            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
-
-            /*
-             * Got Cliet Config from 
-             * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CodeSamples.DotNet.html
-             */
-            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
-            // This client will access the US East 2 region.
-            clientConfig.RegionEndpoint = RegionEndpoint.USEast2;
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
-
-            DynamoDBContext context = new DynamoDBContext(client);
-
-            byte[] byteArray = { 1 };
-            MemoryStream isAM = new MemoryStream(byteArray);
-
-            Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
-            {
-                { "BusNum", new AttributeValue { N = busNum.ToString() } },
-                { "IsAM", new AttributeValue { B = isAM } }
-            };
-
-            // Create GetItem request
-            GetItemRequest request = new GetItemRequest
-            {
-                TableName = "BusRoutes",
-                Key = key,
-            };
-
-            // Issue request
-            var result = await client.GetItemAsync(request);
-
-            // View response
-            Dictionary<string, AttributeValue> item = result.Item;
-
-            float[] corrdinates = { float.Parse(item["driverLactionLat"].N), float.Parse(item["driverLocationLon"].N) };
-
-            Console.WriteLine("Done Scanning DB");
-
-            return corrdinates;
-        }
-
-        void WriteProfile(string profileName, string keyId, string secret)
-        {
-            Console.WriteLine($"Create the [{profileName}] profile...");
-            var options = new CredentialProfileOptions
-            {
-                AccessKey = keyId,
-                SecretKey = secret
-            };
-            var profile = new CredentialProfile(profileName, options);
-            var sharedFile = new SharedCredentialsFile();
-            sharedFile.RegisterProfile(profile);
-            Console.Write("New Profile Saved");
-        }
     }
 }
-

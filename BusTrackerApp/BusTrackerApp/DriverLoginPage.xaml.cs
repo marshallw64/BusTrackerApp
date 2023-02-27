@@ -12,20 +12,23 @@ namespace BusTrackerApp
             InitializeComponent();
         }
 
-        void busDriverLogin_Clicked(System.Object sender, System.EventArgs e)
+        void DriverLogin_Clicked(System.Object sender, System.EventArgs e)
         {
-            bool isBusNumEmpty = string.IsNullOrEmpty(busNumEntry.Text);
+            bool isPasswordEmpty = string.IsNullOrEmpty(DriverPassword.Text);
+            //bool isRoutePickerEmpty = string.IsNullOrEmpty(BusNumberPicker.Text);
 
-            if (isBusNumEmpty)
+            //checks if email & password are filled
+            if (isPasswordEmpty)
             {
-                //displays error pop-up that says that that ID isn't valid in some way
-                DisplayAlert("Error", "Invalid Bus Nummber", "Ok");
+                //Displays pop-up saying that one of the entries are incorrect somehow
+                DisplayAlert("Error", "Your password is inccorect, Please try again", "Ok");
             }
             else
             {
-                //navigates to MapPage if the ID is valid, navigates to user's saved routes MapPage if applicable
-                //TODO: needs to access user's saved routes to take user to the correctly modified MapPage
-                Navigation.PushAsync(new MapPage(int.Parse(busNumEntry.Text)));
+                //checks that the email & password match ones from our database, and then sends them to their student's MapPage
+                //TODO: the logic for checking the entries with our database will be an if/else statement similar to the one for checking if the entries are filled,
+                //if will see if the entries match & if not do nothing & else will navigate to the correct MapPage for the account
+                Navigation.PushAsync(new MapPage(int.Parse(BusNumberPicker.SelectedItem.ToString())));
             }
         }
     }

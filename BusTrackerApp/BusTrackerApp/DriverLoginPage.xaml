@@ -2,23 +2,38 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BusTrackerApp.DriverLoginPage">
+    x:Class="BusTrackerApp.DriverLoginPage"
+    BackgroundColor="#455a64">
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                Text="put in bus number"
-                FontSize="Title"
-                VerticalOptions="Center"
-                TextColor="White"
+        <StackLayout VerticalOptions="Center">
+            <Label HorizontalOptions="Center"
+                   Text="Please enter your password that is provided by CISD, along with your bus's number"
+                   TextColor="White"
+                   FontSize="Title"
+                   FontFamily="futura"
                 />
-            <Entry x:Name="busNumEntry"
-                Placeholder="Enter Bus Number Here"
+            <Entry x:Name="DriverPassword"
+                   Placeholder="Password"
+                   
                 />
-            <Button x:Name="busDriverLogin"
-                Text="Log In"
-                BackgroundColor="#a2c1cc"
-                Clicked="busDriverLogin_Clicked"
-                />
+            <Picker x:Name="BusNumberPicker"
+                    Title="Bus #">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                          <x:String>56</x:String>
+                          <x:String>34</x:String>
+                          <x:String>49</x:String>
+                          <x:String>30</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+            </Picker>
+            <Button x:Name="DriverLogin"
+                    Text="Login"
+                    BackgroundColor="#a2c1cc"
+                    Clicked="DriverLogin_Clicked"
+
+            />
+
 
         </StackLayout>
     </ContentPage.Content>

@@ -6,6 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D3B1CCEF-2219-4B05-AFA5-21E6D6462E16}</ProjectGuid>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
@@ -120,12 +121,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms.Maps">
@@ -138,19 +137,19 @@
       <Version>1.8.116</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.Core">
-      <Version>3.7.104.3</Version>
+      <Version>3.7.105.8</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.DynamoDBv2">
-      <Version>3.7.101.39</Version>
+      <Version>3.7.101.50</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup">
-      <Version>3.7.2</Version>
+      <Version>3.7.4</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.CodeCatalyst">
-      <Version>3.7.100.41</Version>
+      <Version>3.7.100.52</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.IdentityManagement">
-      <Version>3.7.100.69</Version>
+      <Version>3.7.100.80</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
