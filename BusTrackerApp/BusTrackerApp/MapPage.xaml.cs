@@ -116,22 +116,30 @@ namespace BusTrackerApp
 
         private async void checkDBForChanges(int busNum)
         {
-            try
+            var numOfTries = 0;
+            while (numOfTries < 10)
             {
-                while (isChecking)
+                try
                 {
-                    float[] newCorrdinates = await awsDB.retiveItemFromDB(busNum);
-
-                    if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
+                    while (isChecking)
                     {
-                        busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
+                        float[] newCorrdinates = await awsDB.retiveItemFromDB(busNum);
+
+                        if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
+                        {
+                            busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
+                        }
+                        Thread.Sleep(2000);
                     }
-                    Thread.Sleep(5000);
                 }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Check failed");
+                catch (Exception)
+                {
+                    //Solution 1
+                    numOfTries++;
+                    Console.WriteLine("checkDBForChanges Failed");
+                    //Solution 2
+                    //checkDBForChanges(busNum);
+                }
             }
         }
 
