@@ -140,7 +140,9 @@ namespace BusTrackerApp
 
         //All Driver Methods
 
-        //
+        //Gets the location of the driver when the map page loads
+        //Saves that location to the driver data base
+        //Starts listening for changes in the driver's location and updates the data when the driver moves
         private async void GetDriverLocation()
         {
             var status = await CheckAndRequestLocationPermission();
@@ -165,6 +167,8 @@ namespace BusTrackerApp
             }
         }
 
+        //Checks if the app on the driver's phone has permission to view their location
+        //If the driver doesn't have it on then it asks them to turn them on
         private async Task<PermissionStatus> CheckAndRequestLocationPermission()
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -184,6 +188,7 @@ namespace BusTrackerApp
 
         //All Student & Parent Methods
 
+        //Checks every 2 seconds to see if the driver location in the databse has changed 
         private async void checkDBForChanges(int busNum)
         {
             var numOfTries = 0;
@@ -216,17 +221,13 @@ namespace BusTrackerApp
                 }
                 catch (Exception)
                 {
-                    //Solution 1
                     numOfTries++;
                     Console.WriteLine("checkDBForChanges Failed");
-                    //Solution 2
-                    //checkDBForChanges(busNum);
                 }
             }
         }
 
         //Adds a pin for a bus on to the map using the number given
-        //TODO: Either move this method to another class with all the bus coordinates or add coordinates to the paramiters 
         private async void AddBusPinAsync(int busNum)
         {
 
