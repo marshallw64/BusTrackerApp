@@ -127,7 +127,19 @@ namespace BusTrackerApp
 
                         if (newCorrdinates[0] != busPin.Position.Latitude || newCorrdinates[1] != busPin.Position.Longitude)
                         {
-                            busPin = new Pin { Label = "Bus #" + busNum, Type = PinType.Generic, Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1]) };
+                            busMap.Pins.Clear();
+
+                            Pin busPin = new Pin
+                            {
+                                Label = "Bus #" + busNum,
+                                Type = PinType.Generic,
+                                Position = new Xamarin.Forms.Maps.Position(newCorrdinates[0], newCorrdinates[1])
+                            };
+
+                            this.busPin = busPin;
+
+                            busMap.Pins.Add(busPin);
+
                         }
                         Thread.Sleep(2000);
                     }
