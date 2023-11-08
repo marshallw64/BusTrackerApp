@@ -31,7 +31,7 @@ namespace BusTrackerApp.iOS
             Xamarin.FormsMaps.Init();
 
             string dbName = "bus_db.sqlite";
-            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "..", "Library");
+            string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string fullPath = Path.Combine(folderPath, dbName);
 
             var loggingConfig = AWSConfigs.LoggingConfig;
@@ -40,17 +40,20 @@ namespace BusTrackerApp.iOS
             loggingConfig.LogMetricsFormat = LogMetricsFormatOption.JSON;
             loggingConfig.LogTo = LoggingOptions.SystemDiagnostics;
 
-            
+            //var client = new AmazonDynamoDBClient(credentials, region);
 
-            AWSConfigs.AWSRegion = "us-east-2";
-
+            /*
+             * Got Cliet Config from 
+             * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CodeSamples.DotNet.html
+             */
             AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
             // This client will access the US East 1 region.
             clientConfig.RegionEndpoint = RegionEndpoint.USEast1;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
 
-            //var client = new AmazonDynamoDBClient(Amazon.Runtime.AWSCredentials., Amazon.RegionEndpoint.USEast2);
             DynamoDBContext context = new DynamoDBContext(client);
+
+            AWSConfigs.AWSRegion = "us-east-2";
 
             LoadApplication(new App(fullPath));
 

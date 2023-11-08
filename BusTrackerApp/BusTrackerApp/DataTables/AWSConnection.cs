@@ -16,7 +16,7 @@ namespace BusTrackerApp.DataTables
         public async Task<bool> saveItemToDB(int busNum, double driverLoctionLat, double driverLocationLong)
         {
             //Creates the AWS profile to access our AWS server
-            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
+            //WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
 
             /*
              * Got Cliet Config from 
@@ -64,7 +64,7 @@ namespace BusTrackerApp.DataTables
         {
             Console.WriteLine("Scanning DB");
             //Creates the AWS profile to access our AWS server
-            WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
+            //WriteProfile("default", "AKIA6LJNZIF7QCKALEUV", "DwEL+pPJTqpe6i+JtJmEoD3vdo28U+YDG/1FnXGD");
 
             /*
              * Got Cliet Config from 
@@ -75,16 +75,22 @@ namespace BusTrackerApp.DataTables
             clientConfig.RegionEndpoint = RegionEndpoint.USEast2;
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
 
+            Console.WriteLine("Debug 1");
+
             DynamoDBContext context = new DynamoDBContext(client);
 
             byte[] byteArray = { 1 };
             MemoryStream isAM = new MemoryStream(byteArray);
+
+            Console.WriteLine("Debug 2");
 
             Dictionary<string, AttributeValue> key = new Dictionary<string, AttributeValue>
             {
                 { "BusNum", new AttributeValue { N = busNum.ToString() } },
                 { "IsAM", new AttributeValue { B = isAM } }
             };
+
+            Console.WriteLine("Debug 3");
 
             // Create GetItem request
             GetItemRequest request = new GetItemRequest
@@ -93,11 +99,37 @@ namespace BusTrackerApp.DataTables
                 Key = key,
             };
 
+            Console.WriteLine("Debug 4");
+
             // Issue request
-            var result = await client.GetItemAsync(request);
+
+            GetItemResponse result;
+
+            try
+            {
+                result = await client.GetItemAsync(request);
+            }
+            catch (AggregateException ae)
+            {
+                foreach (Exception e in ae.InnerExceptions)
+                {
+                    if (e is TaskCanceledException)
+                        Console.WriteLine("Unable to compute mean: {0}",
+                           ((TaskCanceledException)e).Message);
+                    else
+                        Console.WriteLine("Exception: " + e.GetType().Name);
+                }
+                return null;
+            }
+
+            //var result = await client.GetItemAsync(request);
+
+            Console.WriteLine("Debug 5");
 
             // View response
             Dictionary<string, AttributeValue> item = result.Item;
+
+            Console.WriteLine("Debug 6");
 
             float[] corrdinates = { float.Parse(item["driverLactionLat"].N), float.Parse(item["driverLocationLon"].N) };
 

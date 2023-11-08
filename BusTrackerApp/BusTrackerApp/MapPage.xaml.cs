@@ -39,7 +39,7 @@ namespace BusTrackerApp
         {
             InitializeComponent();
 
-            CrossGeolocator.Current.DesiredAccuracy = 20;
+            //CrossGeolocator.Current.DesiredAccuracy = 20;
 
             //Draws lines where the route is with each coordinate being a start or end point of each line
             //It then adds the route on top the map
@@ -63,11 +63,12 @@ namespace BusTrackerApp
 
                 }
             };
-
-            AddBusPinAsync(49);
+            
+            AddBusPinAsync(56);
+            
             isChecking = true;
-            Task.Factory.StartNew(() => { checkDBForChanges(49); });
-
+            Task.Factory.StartNew(() => { checkDBForChanges(56); });
+            
             busMap.MapElements.Add(polyline);
         }
 
@@ -130,8 +131,7 @@ namespace BusTrackerApp
         }
 
         protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
+        {              base.OnDisappearing();
 
             isChecking = false;
 
@@ -227,25 +227,49 @@ namespace BusTrackerApp
             }
         }
 
-        //Adds a pin for a bus on to the map using the number given
+        // Adds a pin representing the current location of the bus being tracked on a map displayed to the user.
         private async void AddBusPinAsync(int busNum)
         {
+            
+            float[] corrdinates = {2};
 
-            float[] corrdinates = await awsDB.retiveItemFromDB(busNum);
+            // Retrieve the coordinates of the bus from the database asynchronously
+            try
+            {
+                corrdinates = await awsDB.retiveItemFromDB(busNum);
+            } catch (Exception)
+            {
+                await DisplayAlert("Alert", "AddBusPinAsync failed", "OK");
+                return;
+            }
+            
 
+            //float[] corrdinates = await awsDB.retiveItemFromDB(busNum);
+
+            // Print the retrieved coordinates to the console (debugging)
             Console.WriteLine(corrdinates[0] + " " + corrdinates[1]);
 
-            //Creates new pin object with lable, type, and position properties
+            // Create a new pin object for the bus
             Pin busPin = new Pin
             {
+                // Set the label of the pin to display the bus number
                 Label = "Bus #" + busNum,
+
+                // Set the pin type to a generic type
                 Type = PinType.Generic,
+
+                // Set the position of the pin using the retrieved coordinates
                 Position = new Xamarin.Forms.Maps.Position(corrdinates[0], corrdinates[1])
             };
 
+            // Store the bus pin in a class variable for future reference
             this.busPin = busPin;
 
+            Console.Write("bus pin added");
+
+            // Add the bus pin to the map
             busMap.Pins.Add(busPin);
         }
+
     }
 }

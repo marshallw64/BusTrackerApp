@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 //using System.Text.RegularExpressions;
 using Xamarin.Forms;
+using MimeKit;
 
 namespace BusTrackerApp
 {
@@ -37,7 +38,50 @@ namespace BusTrackerApp
                 //will also need to save the code & email for the CodePage
                 var code = rand.Next(0000, 9999);
 
-                MailMessage message = new MailMessage();
+                var sysLogin = "dumminer19@gmail.com";
+                var sysPass = "worvyd-mYwwiv-pumga2";
+                var sysAddress = new MailAddress(sysLogin, "Help");
+
+                var receiverAddress = new MailAddress("mawhitewater@icloud.com");
+
+                var smtp = new SmtpClient
+                {
+                    Host = "email-smtp.us-east-2.amazonaws.com", 
+                    Port = 587,
+                    EnableSsl = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new System.Net.NetworkCredential(sysLogin, sysPass)
+                };
+
+
+                using (var message = new MailMessage(sysAddress, receiverAddress) { Subject = "Please Help", Body = "Please Help I'm trapped in an Email" })
+                {
+                    smtp.Send(message);
+                }
+
+                /*var message = new MimeMessage();
+                var builder = new BodyBuilder();
+
+                message.From.Add(InternetAddress.Parse(from));
+                message.To.Add(InternetAddress.Parse(to));
+                message.Subject = subject;
+
+                builder.TextBody = body;
+
+                message.Body = builder.ToMessageBody();
+
+                using (var client = new SmtpClient())
+                {
+                    client.ServerCertificateValidationCallback = (s, certificate, chain, sslPolicyErrors) => true;
+
+                    client.Connect("email-smtp.us-east-2.amazonaws.com"", 25, false);
+                    client.Authenticate("noreply@mydomain.gr", "mypass");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }*/
+
+                /*MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("dumminer19@gmail.com");
                 message.To.Add(new MailAddress("mawhitewater@icloud.com"));
@@ -45,14 +89,14 @@ namespace BusTrackerApp
                 message.IsBodyHtml = true; //to make message body as html  
                 message.Body = "<p>Please Help I'm trapped in an Email</p>";
                 smtp.Port = 465;
-                smtp.Host = "smtp.gmail.com"; //for gmail host  
+                smtp.Host = "email-smtp.us-east-2.amazonaws.com"; //for AWS host  
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("dumminer19@gmail.com", "worvyd-mYwwiv-pumga2");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
 
-                DisplayAlert("Success", "Your email has been sent " + code, "Ok");
+                DisplayAlert("Success", "Your email has been sent " + code, "Ok");*/
 
                 /*MailAddress from = new MailAddress("mawhitewater@icloud.com");
                 MailAddress to = new MailAddress("mwhitewater@newtech.coppellisd.com");
@@ -80,7 +124,7 @@ namespace BusTrackerApp
                 mailMessage.To.Add("recipient");
 
                 smtpClient.Send(mailMessage);*/
-                Navigation.PushAsync(new CodePage());
+                //Navigation.PushAsync(new CodePage());
             }
 
 
